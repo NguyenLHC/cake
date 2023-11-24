@@ -6,7 +6,6 @@ import com.example.ecommerce.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,31 +25,29 @@ import java.util.UUID;
 @Controller
 public class AdminProductController {
     @Autowired
-    private ProductService bookService;
+    private ProductService cakeService;
 
     @Autowired
     private CategoryService categoryService;
-    @Autowired
-    private ResourceLoader resourceLoader;
 
     @GetMapping("/admin/products")
     public String Home(Model model) {
-        List<Product> products = bookService.getAllBook();
+        List<Product> products = cakeService.getAllCake();
             model.addAttribute("products", products);
         return "Admin/Product/index";
     }
     @GetMapping("/admin/product/create")
-    public String CreateBook(Model model) {
+    public String CreateCake(Model model) {
         model.addAttribute("product", new Product());
         model.addAttribute("listCategory", categoryService.getAllCategories());
         return "Admin/Product/create";
     }
     @PostMapping("/admin/product/create")
-    public String CreateBook(@Valid Product product, BindingResult res, Model model,
+    public String CreateCake(@Valid Product product, BindingResult res, Model model,
                              @RequestParam MultipartFile imageProduct
                              ) throws IOException {
         if(res.hasErrors()) {
-            model.addAttribute("book", product);
+            model.addAttribute("cake", product);
             model.addAttribute("listCategory", categoryService.getAllCategories());
             return "Admin/Product/create";
         }
@@ -67,13 +64,13 @@ public class AdminProductController {
             }
         }
         product.setIsPublish(false);
-        bookService.addBook(product);
+        cakeService.addCake(product);
         return "redirect:/admin/products";
     }
     @DeleteMapping("/admin/product/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") Long id) {
         System.out.println(id);
-        bookService.removeBook(id);
+        cakeService.removeCake(id);
         return ResponseEntity.ok("Request successful");
     }
     @GetMapping("/admin/product/delete/{id}")
@@ -83,18 +80,18 @@ public class AdminProductController {
 
     @PostMapping("/admin/product/edit/{id}")
     public String edit(@PathVariable("id") Long id, Model model) {
-        var product = bookService.getProduct(id);
+        var product = cakeService.getProduct(id);
         model.addAttribute("product", product);
         model.addAttribute("listCategory", categoryService.getAllCategories());
         return "Admin/Product/edit";
     }
     @PostMapping("/admin/product/edit")
-    public String edit(Model model, @Valid Product newBook, BindingResult res,
+    public String edit(Model model, @Valid Product newCake, BindingResult res,
                        @RequestParam MultipartFile imageProduct
 
                        ) {
         if(res.hasErrors()) {
-            model.addAttribute("product", newBook);
+            model.addAttribute("product", newCake);
             model.addAttribute("listCategory", categoryService.getAllCategories());
             return "Admin/Product/edit";
         }
@@ -105,26 +102,26 @@ public class AdminProductController {
                 String newImageFile = UUID.randomUUID() +  ".png";
                 Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + newImageFile);
                 Files.copy(imageProduct.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-                newBook.setImage(newImageFile);
+                newCake.setImage(newImageFile);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        bookService.update(newBook);
+        cakeService.update(newCake);
         return "redirect:/admin/products";
     }
     @PostMapping("/admin/product/publish/{id}")
     public String publish(@PathVariable("id") Long id) {
-        var product = bookService.getProduct(id);
+        var product = cakeService.getProduct(id);
         product.setIsPublish(true);
-        bookService.update(product);
+        cakeService.update(product);
         return "redirect:/admin/products";
     }
     @PostMapping("/admin/product/unpublish/{id}")
     public String unpublish(@PathVariable("id") Long id) {
-        var product = bookService.getProduct(id);
+        var product = cakeService.getProduct(id);
         product.setIsPublish(false);
-        bookService.update(product);
+        cakeService.update(product);
         return "redirect:/admin/products";
     }
 }

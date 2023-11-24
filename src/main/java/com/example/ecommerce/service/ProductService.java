@@ -14,20 +14,20 @@ import java.util.List;
 public class ProductService {
     @Autowired
     private ProductRepo productRepo;
-    public List<Product> getAllBook() {
+    public List<Product> getAllCake() {
         return productRepo.findAll();
     }
     public Product getProduct(Long id) {
         return productRepo.findById(id).orElse(null);
     }
-    public void addBook(Product book) {
-        productRepo.save(book);
+    public void addCake(Product cake) {
+        productRepo.save(cake);
     }
-    public void removeBook(Long id) {
+    public void removeCake(Long id) {
         productRepo.deleteById(id);
     }
-    public void update(Product newBook) {
-        productRepo.save(newBook);
+    public void update(Product newCake) {
+        productRepo.save(newCake);
     }
     public Page<Product> paginateProduct(Long category, Pageable page) {
         Specification<Product> spec = Specification.where(withQuantity()).and(withIsPublish());

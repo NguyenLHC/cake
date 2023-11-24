@@ -24,15 +24,14 @@ public class OverviewController {
     private CustomerService customerService;
     @GetMapping("/admin/overview")
     public String overview(Model model) {
-        double totalSales = 0.0;
+        int totalSales = 0;
         int totalProducts = 0 ;
         int totalOrders = 0;
-        int totalCustomers = 0;
         for (Order item : orderService.getAllOrders()) {
             totalOrders++;
             BigDecimal totalAmount = item.getTotalAmount();
             if (totalAmount != null) {
-                totalSales += totalAmount.doubleValue();
+                totalSales += totalAmount.intValue();
             }
             totalProducts+=totalProducts(item);
         }

@@ -2,7 +2,6 @@ package com.example.ecommerce.controller;
 
 import com.example.ecommerce.model.CartProduct;
 import com.example.ecommerce.model.Product;
-import com.example.ecommerce.model.Review;
 import com.example.ecommerce.service.CartService;
 import com.example.ecommerce.service.CategoryService;
 import com.example.ecommerce.service.CustomUserDetailsService;
@@ -27,13 +26,8 @@ public class ProductController {
     private CategoryService categoryService;
 
     @Autowired
-    private CartService cartService;
-
-    @Autowired
     private ProductService productService;
 
-    @Autowired
-    private CustomUserDetailsService userService;
     @GetMapping("/products")
     private String index(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "0") Long category, Model model, Principal principal) {
         PageRequest pageable = PageRequest.of(page-1, 9);
@@ -62,9 +56,6 @@ public class ProductController {
         cp.setProduct(product);
         model.addAttribute("CartProduct", cp);
         model.addAttribute("product", product);
-        var review = new Review();
-        review.setProduct(product);
-        model.addAttribute("review", review);
         return "Product/product-detail";
     }
 

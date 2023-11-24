@@ -1845,6 +1845,9 @@ img {
     text-transform: uppercase; }
 
 /* :: 17.0 Footer Area CSS */
+.footer-div-space{
+    justify-content: space-between;
+}
 .footer-area {
     position: relative;
     z-index: 1; }

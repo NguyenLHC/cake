@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 public class TokenService {
-    private static final String SECRET_KEY = "electricecommerceinhochiminhuniversityforeignlanguageandinformationtechnology2023";
+    private static final String SECRET_KEY = "universityofinformationtechnologylaptrinhungdungwebnhom62023";
     public String generateToken(User registrationInfo) {
         Claims claims = Jwts.claims();
         claims.put("name", registrationInfo.getName());

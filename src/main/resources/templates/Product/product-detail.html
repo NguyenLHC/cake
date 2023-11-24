@@ -109,9 +109,6 @@
               <li class="nav-item">
                 <a href="#description" class="nav-link active" data-toggle="tab" role="tab" >Description</a>
               </li>
-              <li class="nav-item">
-                <a href="#reviews" class="nav-link" data-toggle="tab" role="tab">Reviews <span class="text-muted">(1)</span></a>
-              </li>
             </ul>
             <!-- Tab Content -->
             <div class="tab-content">
@@ -120,81 +117,12 @@
                   <p th:text="${product.description}"></p>
                 </div>
               </div>
-              <div role="tabpanel" class="tab-pane fade" id="reviews">
-                <div class="reviews_area">
-                  <ul>
-                    <li>
-                      <div class="single_user_review mb-15" th:each="review : ${product.reviews}">
-                        <div class="review-rating">
-                          <span th:each="star : ${#numbers.sequence(1, 5)}">
-                          <i th:class="${star <= review.rating} ? 'fa fa-star' : 'fa fa-star-o'" aria-hidden="true"></i>
-                          </span>
-                          <p style="color: black" th:text="${review.content}"></p>
-                        </div>
-                        <div class="review-details">
-                          <p>by <a href="#" th:text="${review.user.name}"></a> on <span>12 Sep 2018</span></p>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="submit_a_review_area mt-50">
-                  <h4>Submit A Review</h4>
-                  <form th:action="@{/review}" th:object="${review}" method="post">
-                    <input th:field="${review.product.id}" type="hidden">
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="form-group d-flex align-items-center">
-                          <span class="mr-15">Your Ratings:</span>
-                          <div class="stars">
-                            <input th:field="*{rating}" th:value="1" type="radio" name="star" class="star-1" id="star-1">
-                            <label class="star-1" for="star-1">1</label>
-                            <input th:field="*{rating}" th:value="2" type="radio" name="star" class="star-2" id="star-2">
-                            <label class="star-2" for="star-2">2</label>
-                            <input th:field="*{rating}" th:value="3" type="radio" name="star" class="star-3" id="star-3">
-                            <label class="star-3" for="star-3">3</label>
-                            <input th:field="*{rating}" th:value="4" type="radio" name="star" class="star-4" id="star-4">
-                            <label class="star-4" for="star-4">4</label>
-                            <input th:field="*{rating}" th:value="5" type="radio" name="star" class="star-5" id="star-5">
-                            <label class="star-5" for="star-5">5</label>
-                            <div th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}" class="error-message"></div>
-                            <span></span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <div class="form-group">
-                          <div th:if="${#fields.hasErrors('content')}" class="error-message">
-                            <span th:errors="${review.content}"></span>
-                          </div>
-                          <label for="content">Comments</label>
-                          <textarea th:onchange="handleChange()"  minlength="1" th:field="*{content}" class="form-control" id="content" rows="5" data-max-length="150"></textarea>
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <button type="submit" class="btn alazea-btn">Submit Your Review</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script th:inline="javascript">
-    function handleChange(review) {
-      // Use the review variable in your JavaScript logic
-      console.log('Review content:', review);
-      // Add more JavaScript logic here as needed
-    }
-
-  </script>
   <!-- ##### Single Product Details Area End ##### -->
 </div>
 

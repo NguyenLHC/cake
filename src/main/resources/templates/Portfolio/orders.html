@@ -66,10 +66,9 @@
                       <td class="cell">
                         <span th:if="${item.status != null and item.status.toString() == 'DELIVERING'}" class="badge" style="background: #5a6268" th:text="${item.status}"></span>
                         <span th:if="${item.status != null and item.status.toString() == 'CANCELED'}" class="badge bg-danger" th:text="${item.status}"></span>
-                        <span th:if="${item.status != null and item.status.toString() == 'PAYMENT_PENDING'}" class="badge bg-warning" th:text="${item.status}"></span>
                         <span th:if="${item.status != null and item.status.toString() == 'SHIPPED'}"  class="badge bg-success" th:text="${item.status}"></span>
                       </td>
-                      <td class="cell" th:text="${item.totalAmount}"></td>
+                      <td class="cell" th:text="${item.totalAmount.intValue()}+'đ'"></td>
                       <td class="cell"><a class="btn-sm app-btn-secondary" th:href="@{/order/detail/{id}(id=${item.getId()})}">View</a></td>
 
                     </tr>

@@ -42,8 +42,5 @@ public class Order {
     @Column(name = "status")
     private OrderStatus status;
 
-    @ManyToOne
-    @JoinColumn(name = "coupon_id")
-    private Coupon coupon; // Added this line
 }
 

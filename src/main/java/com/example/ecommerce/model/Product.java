@@ -38,7 +38,7 @@ public class Product {
     @Min(value = 10000, message = "Giá sản phẩm không được bé hơn 10000")
     @Max(value = 999999999, message = "Giá sản phẩm không được quá 999999999")
     @Column(name="price")
-    private Double price;
+    private int price;
 
     @ManyToOne
     @JoinColumn(name ="category_id")
@@ -56,9 +56,6 @@ public class Product {
     @Max(value = 100, message = "Số lượng sản phẩm không được quá 100")
     @Column
     private int quantity;
-
-    @OneToMany(mappedBy = "product")
-    private List<Review> reviews = new ArrayList<>();
 
     @Column(name="isPublish")
     private Boolean isPublish;

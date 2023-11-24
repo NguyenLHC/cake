@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
-    @Autowired
-    private ProductService bookService;
     @GetMapping("/admin/category")
     public String showCategories(Model model) {
         model.addAttribute("cateEdit", new Category());

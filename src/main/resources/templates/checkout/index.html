@@ -83,18 +83,6 @@
                   </label>
 
                   </div>
-                  <div class="payment" style="display: flex; justify-content: start">
-                  <label style="display: flex; margin: 0; align-items: center">
-                    <input style="height: 30px; width: 10%"  type="radio"  th:field="${order.paymentMethod.id}" th:value="2">
-                    <div style="width: 10%; margin: 0 25px">
-
-                      <img  th:src="@{/img/logopaypal.png}">
-                    </div>
-                    <p style="margin:0">
-                    Ví Paypal
-                    </p>
-                  </label>
-                  </div>
                 </div>
                 <button  class="btn alazea-btn w-100" type="submit">Submit</button>
               </div>
@@ -110,22 +98,18 @@
                 <h5>Products:</h5>
                 <div th:each="item: ${products}" class="single-products d-flex justify-content-between align-items-center">
                   <p th:text="*{item.getProduct.title} + '  x'+ *{item.quantity}"></p>
-                  <h5 th:text="*{#numbers.formatCurrency(item.getProduct.price * item.quantity)}"></h5>
+                  <h5 th:text="*{item.getProduct.price * item.quantity}+'đ'"></h5>
                 </div>
               </div>
             </div>
             <div class="shipping d-flex justify-content-between align-items-center">
               <h5>Shipping</h5>
-              <h5 th:text="${#numbers.formatCurrency(ship)}"></h5>
-            </div>
-            <div class="shipping d-flex justify-content-between align-items-center">
-              <h5>Coupon</h5>
-              <h5 th:text="'-'+${#numbers.formatCurrency(coupon)}"></h5>
+              <h5 th:text="${ship}+'đ'"></h5>
             </div>
 
             <div class="order-total d-flex justify-content-between align-items-center">
               <h5>Order Total</h5>
-              <h5 th:text="${#numbers.formatCurrency(orderTotal)}"></h5>
+              <h5 th:text="${orderTotal}+'đ'"></h5>
             </div>
           </div>
 

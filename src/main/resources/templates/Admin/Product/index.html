@@ -17,10 +17,10 @@
   </style>
 </head>
 <body>
-<div layout:fragment="book">
+<div layout:fragment="cake">
   <div class="app-wrapper">
     <div class="app-content pt-3 p-md-3 p-lg-4">
-      <h1  class="text-center">List Plants</h1>
+      <h1  class="text-center">List Cakes</h1>
       <div class="row">
         <div class="col-md-4" th:each="product : ${products}">
           <div class="book-card">
@@ -40,7 +40,7 @@
                     <div class="form-group">
                       <p>
                         <span style="color: black; font-weight: bold">Price: </span>
-                        <span  style="color: black" id="price" th:text="${product.getPrice()}"></span>
+                        <span  style="color: black" id="price" th:text="${product.getPrice()}+'đ'"></span>
                       </p>
                     </div>
                     <div class="form-group">

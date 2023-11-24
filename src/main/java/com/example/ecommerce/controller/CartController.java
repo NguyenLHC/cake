@@ -1,10 +1,8 @@
 package com.example.ecommerce.controller;
 
 import com.example.ecommerce.model.CartProduct;
-import com.example.ecommerce.model.Coupon;
 import com.example.ecommerce.model.Product;
 import com.example.ecommerce.service.CartService;
-import com.example.ecommerce.service.CouponService;
 import com.example.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,21 +17,11 @@ public class CartController {
     @Autowired
     private ProductService productService;
 
-    @Autowired
-    private CouponService couponService;
     @GetMapping("cart")
     private String index(Model model) {
         var products = cartService.getCartItems();
-        double discountValue = 0.0;
 
-        if(cartService.getAppliedCoupon()!=null) {
-            model.addAttribute("coupon", cartService.getAppliedCoupon());
-            discountValue = cartService.getAppliedCoupon().getDiscount();
-        } else {
-            model.addAttribute("coupon", new Coupon());
-
-        }
-        double subTotal = 0;
+        int subTotal = 0;
         for (var product : products) {
             subTotal += product.getProduct().getPrice()*product.getQuantity();
         }
@@ -42,11 +30,7 @@ public class CartController {
         } else {
             model.addAttribute("check", true);
         }
-        var appliedCoupon = Math.ceil((discountValue*subTotal)/100);
-        var total = subTotal - appliedCoupon;
-        model.addAttribute("appliedCoupon", appliedCoupon);
         model.addAttribute("subtotal", subTotal);
-        model.addAttribute("total", total);
         model.addAttribute("courses", products);
         return "Cart/index";
     }
@@ -79,17 +63,4 @@ public class CartController {
         cartService.update(id, quantity);
         return "Cart/index";
     }
-
-    @PostMapping("/cart/coupon")
-    public String applyCoupon(Coupon c) {
-        var coupon = couponService.getCouponByCode(c.getCode());
-        System.out.println(coupon);
-        if (coupon != null) {
-            cartService.applyCoupon(coupon);
-        } else {
-            cartService.applyCoupon(null);
-        }
-        return "redirect:/cart";
-    }
-
 }
