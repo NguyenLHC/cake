@@ -14376,9 +14376,9 @@ button.close:focus {
 
 .app-branding {
     height: 60px;
-    padding-top: 1rem;
-    padding-left: 1rem;
-    margin-bottom: 1rem
+    text-align: center;
+    margin-bottom: 1rem;
+    padding-top: 0.6rem;
 }
 
 .app-branding .logo-icon {

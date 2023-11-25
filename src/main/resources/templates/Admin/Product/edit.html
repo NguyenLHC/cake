@@ -4,7 +4,7 @@
       layout:decorate="Admin/Product/layoutProduct">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Product</title>
 </head>
 <body>
 <div class="container" layout:fragment="content">
@@ -60,20 +60,6 @@
       </div>
     </div>
   </div>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <script th:inline="javascript">
-    const updateBook = (link) => {
-        var formData = {
-          title: $("#title").val(),
-          description: $("#author").val(),
-          price: $("#price").val(),
-          category: $("#category").val()
-        };
-        console.log(formData)
-
-    }
-  </script>
 </div>
 </body>
 </html>
