@@ -2,7 +2,6 @@ package com.example.ecommerce.controller.admin;
 
 import com.example.ecommerce.model.Category;
 import com.example.ecommerce.service.CategoryService;
-import com.example.ecommerce.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,7 +40,7 @@ public class CategoryController {
     @PostMapping("/admin/category/delete/{id}")
     public String deleteCategory(@PathVariable("id") Long id, Model model) {
             var cate = categoryService.getCategory(id);
-            if(cate.getBooks().size()>0) {
+            if(cate.getCakes().size()>0) {
                 model.addAttribute("cateEdit", new Category());
                 model.addAttribute("category", cate);
                 model.addAttribute("listCategory", categoryService.getAllCategories());

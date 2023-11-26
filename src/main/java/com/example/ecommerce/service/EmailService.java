@@ -44,7 +44,7 @@ public class EmailService {
         MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
 
         // Load the email template
-        String emailTemplate = getEmailTemplate();
+        String emailTemplate = getEmailTemplateorder();
 
         // Replace placeholders in the template with the actual content
         String processedTemplate = emailTemplate.replace( "[[content]]",  order.getTotalAmount().toString());
@@ -57,6 +57,11 @@ public class EmailService {
     }
     public String getEmailTemplate() throws IOException {
         Path path = Paths.get("src/main/resources/templates/mail/verify.html");
+        return Files.readString(path);
+    }
+
+    public String getEmailTemplateorder() throws IOException {
+        Path path = Paths.get("src/main/resources/templates/mail/order.html");
         return Files.readString(path);
     }
 }

@@ -44,9 +44,6 @@ public class Product {
     @JoinColumn(name ="category_id")
     private Category category;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
 
     @Column
     private String image;
