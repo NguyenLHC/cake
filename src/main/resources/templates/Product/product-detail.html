@@ -43,7 +43,7 @@
               <div id="product_details_slider" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
-                    <a class="product-img" href="img/bg-img/49.jpg" title="Product Image">
+                    <a class="product-img" th:href="${imageProductUrl} + ${product.getImage()}" title="Product Image">
                       <img class="d-block w-100" th:src="${imageProductUrl} + ${product.getImage()}" alt="1">
                     </a>
                   </div>

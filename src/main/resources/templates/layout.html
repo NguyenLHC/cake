@@ -36,7 +36,7 @@
         <div class="classy-nav-container breakpoint-off">
             <div class="container">
                 <nav class="classy-navbar justify-content-between" id="alazeaNav">
-                    <a th:href="@{/}" class="nav-brand"><img src="img/core-img/logo.png" alt=""></a>
+                    <a th:href="@{/}" class="nav-brand"><img th:src="@{/img/core-img/logo.png}" alt=""></a>
                     <div class="classy-navbar-toggler">
                         <span class="navbarToggler"><span></span><span></span><span></span></span>
                     </div>
@@ -90,7 +90,7 @@
 <div layout:fragment="content">
 
 </div>
-<footer class="footer-area bg-img" style="background-image: url(img/bg-img/3.jpg);">
+<footer class="footer-area bg-img" th:style="'background-image: url(' + @{/img/bg-img/3.jpg} + ');'">
     <!-- Main Footer Area -->
     <div class="main-footer-area">
         <div class="container">
@@ -100,7 +100,7 @@
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="single-footer-widget">
                         <div class="footer-logo mb-30">
-                            <a href="#"><img src="img/core-img/logo.png" alt=""></a>
+                            <a href="#"><img th:src="@{/img/core-img/logo.png}" alt=""></a>
                         </div>
                         <p>Welcome to our enchanting world of sweetness and delight – where every bite tells a story of indulgence and celebration.</p>
                     </div>
