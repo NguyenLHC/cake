@@ -90,35 +90,12 @@
 
               </div>
             </div>
-
-            <!-- Shop Widget -->
-            <div class="shop-widget best-seller mb-50">
-              <h4 class="widget-title">Best Seller</h4>
-              <div class="widget-desc">
-
-                <!-- Single Best Seller Products -->
-                <div th:each="item : ${besSellerProducts}" class="single-best-seller-product d-flex align-items-center">
-                  <div class="product-thumbnail">
-                    <a th:href="@{/products/detail/{id}(id=${item.getId()})}"><img th:src="@{/img/}+${item.getImage()}" alt=""></a>
-                  </div>
-                  <div class="product-info">
-                    <a th:href="@{/products/detail/{id}(id=${item.getId()})}" th:text="${item.getTitle()}">Cactus Flower</a>
-                    <p th:text="${item.getPrice()}">$10.99</p>
-                    <div class="ratings">
-                      <p th:text="'Sold Quantity: ' + ${item.calculateTotalSoldQuantity()}">$10.99</p>
-
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
           </div>
         </div>
 
         <div class="col-12 col-md-8 col-lg-9">
           <div class="search-form">
-            <form  th:action="@{/orders}" method="get">
+            <form  th:action="@{/products/search}" method="get">
               <input style="    width: 80%;
     height: 45px;
     border: 1px solid #ebebeb;
@@ -170,9 +147,6 @@
                 <li class="page-item" th:if="${currentPage <= totalPages-1}" th:class="${currentPage == totalPages} ? disabled">
                   <a class="page-link" th:href="@{/products(page=__${currentPage+2}__, category=__${filterCategory}__)}">&raquo;</a>
                 </li>
-<!--                <li class="page-item"><a class="page-link" href="#">1</a></li>-->
-<!--                <li class="page-item"><a class="page-link" href="#">2</a></li>-->
-<!--                <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>-->
               </ul>
             </nav>
           </div>

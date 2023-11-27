@@ -15,9 +15,7 @@ public class OrderService {
 
     @Autowired
     private OrderRepo orderRepository;
-    public List<Order> getOrdersByCustomerEmail(String email) {
-        return orderRepository.findByCustomerEmail(email);
-    }
+
     public List<Order> getOrdersByEmailOrPhone(String str) {
         return orderRepository.findByCustomer_EmailOrCustomer_Phone(str, str);
     }

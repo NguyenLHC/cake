@@ -1,5 +1,6 @@
 package com.example.ecommerce.service;
 
+import com.example.ecommerce.model.Order;
 import com.example.ecommerce.model.Product;
 import com.example.ecommerce.repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ import java.util.List;
 public class ProductService {
     @Autowired
     private ProductRepo productRepo;
+    public List<Product> getProductByName(String str) {
+        return productRepo.findProductByTitle(str);
+    }
     public List<Product> getAllCake() {
         return productRepo.findAll();
     }

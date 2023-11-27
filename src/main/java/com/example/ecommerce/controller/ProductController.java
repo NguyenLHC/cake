@@ -37,10 +37,15 @@ public class ProductController {
         model.addAttribute("products", products.getContent());
         model.addAttribute("currentPage", page-1);
         model.addAttribute("totalPages", products.getTotalPages()-1);
-        List<Product> bestSellerProducts = products.stream().
-                sorted(Comparator.comparingInt(Product::calculateTotalSoldQuantity).reversed()).filter(p -> p.calculateTotalSoldQuantity()>0).limit(10).collect(Collectors.toList());
-        model.addAttribute("besSellerProducts", bestSellerProducts);
         return "Product/index";
+    }
+
+    @GetMapping("/products/search")
+    private String searchProduct(Model model, @RequestParam(name = "search", required = false, defaultValue = "") String search) {
+        model.addAttribute("categories", categoryService.getAllCategories());
+        System.out.println(search);
+        model.addAttribute("products", productService.getProductByName(search));
+        return "Product/search";
     }
 
     @GetMapping("products/detail/{id}")
