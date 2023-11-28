@@ -49,11 +49,11 @@ public class AdminProductController {
         if(res.hasErrors()) {
             model.addAttribute("cake", product);
             model.addAttribute("listCategory", categoryService.getAllCategories());
-            return "Admin/Product/create";
+            return "Admin/Product/create"; // hiển thị lại form với thông báo lỗi
         }
         if(imageProduct != null && imageProduct.getSize() > 0)
         {
-            try {
+            try { //  lưu trữ tệp hình ảnh tải lên từ form vào thư mục "static/img" của ứng dụng
                 File saveFile = new ClassPathResource("static/img").getFile();
                 String newImageFile = UUID.randomUUID() +  ".png";
                 Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + newImageFile);

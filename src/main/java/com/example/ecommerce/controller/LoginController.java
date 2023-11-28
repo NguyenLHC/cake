@@ -22,7 +22,8 @@ public class LoginController {
     public String logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         if (authentication != null) {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
-        }
+        } //xóa thông tin xác thực
+        //hủy phiên
 
         HttpSession session = request.getSession(false);
         if (session != null) {

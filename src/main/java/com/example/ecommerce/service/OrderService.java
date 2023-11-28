@@ -55,8 +55,4 @@ public class OrderService {
         return null; // Return null if the order with the given ID does not exist
     }
 
-    // Delete an order by its ID
-    public void deleteOrder(Long id) {
-        orderRepository.deleteById(id);
-    }
 }

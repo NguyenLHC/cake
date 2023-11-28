@@ -28,8 +28,8 @@ public class SecurityConfig {
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(uds);
-        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        authenticationProvider.setUserDetailsService(uds); // lấy thông tin user từ csdl
+        authenticationProvider.setPasswordEncoder(passwordEncoder()); // dùng kiểm tra tính hợp lệ của mật khẩu
         return authenticationProvider;
     }
     @Bean

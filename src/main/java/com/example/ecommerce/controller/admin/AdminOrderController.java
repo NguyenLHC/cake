@@ -23,7 +23,7 @@ public class AdminOrderController {
 
         if (startDate == null) {
             Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.MONTH, -1);
+            calendar.add(Calendar.MONTH, -1); // gán là 1 tháng trước
             startDate = calendar.getTime();
         }
         if (endDate == null) {
@@ -32,13 +32,13 @@ public class AdminOrderController {
         System.out.println(status);
         List<Order> ordersWithDate = orderService.getOrdersBetweenDates(startDate, endDate);
         List<Order> orders = new ArrayList<>();
-        if(status.compareTo("all") == 0) {
+        if(status.compareTo("all") == 0) { // nếu là all, hiển thị all từ mới đến cũ
             Collections.reverse(ordersWithDate);
             model.addAttribute("status", "all");
             model.addAttribute("orders", ordersWithDate);
             model.addAttribute("totalOrder", ordersWithDate.size());
             return "Admin/order/index";
-        }
+        } // lọc theo status
         for(Order item : ordersWithDate) {
             if(item.getStatus() != null) {
                 if(item.getStatus().toString().compareTo(status) == 0) {

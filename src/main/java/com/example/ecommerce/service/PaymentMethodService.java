@@ -18,29 +18,9 @@ public class PaymentMethodService {
         this.paymentMethodRepository = paymentMethodRepository;
     }
 
-    public List<PaymentMethod> getAllPaymentMethods() {
-        return paymentMethodRepository.findAll();
-    }
-
     public PaymentMethod getPaymentMethodById(Long id) {
         return paymentMethodRepository.findById(id).orElse(null);
     }
 
-    public PaymentMethod createPaymentMethod(PaymentMethod paymentMethod) {
-        return paymentMethodRepository.save(paymentMethod);
-    }
 
-    public PaymentMethod updatePaymentMethod(Long id, PaymentMethod updatedPaymentMethod) {
-        if (paymentMethodRepository.existsById(id)) {
-            updatedPaymentMethod.setId(id);
-            return paymentMethodRepository.save(updatedPaymentMethod);
-        } else {
-            // Handle not found scenario
-            return null;
-        }
-    }
-
-    public void deletePaymentMethod(Long id) {
-        paymentMethodRepository.deleteById(id);
-    }
 }
