@@ -6,6 +6,7 @@ import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,6 +37,12 @@ public class CheckOutController {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private PaypalService paypalService;
+
+    @Autowired
+    private TokenService tokenService;
 
     @Autowired
     private CustomUserDetailsService userDetailsService;
@@ -77,10 +84,33 @@ public class CheckOutController {
         order.setTotalAmount(BigDecimal.valueOf(total));
         orderService.updateOrder(order.getId(), order);
 
-        orderService.updateOrder(order.getId(), order);
-        cartService.removeAll();
-        emailService.sendOrderDetail(c.getEmail(), "Order Tracking", order);
+        if(p.getId() == 1) {
+            orderService.updateOrder(order.getId(), order);
+            cartService.removeAll();
+            emailService.sendOrderDetail(c.getEmail(), "Order Tracking", order);
+        } else {
+            order.setStatus(OrderStatus.PAYMENT_PENDING);
+            orderService.updateOrder(order.getId(), order);
+            var orderEncrypted = tokenService.generateTokenOrder(order.getId());
+            var data = paypalService.createJsonPayload(Double.valueOf(total), "http://localhost:8080/checkout/success?order="+orderEncrypted, "http://localhost:8080/checkout/failed?order="+orderEncrypted);
+            var url = (paypalService.getApproveLink(paypalService.createOrder(data)));
+            return "redirect:"+url;
+        }
 
         return "Home/index";
+    }
+    @GetMapping("/checkout/failed")
+    private String failedPayment() {
+        return "Notify/failed-payment";
+    }
+    @GetMapping("/checkout/success")
+    private String successPayment(@RequestParam String token, @RequestParam String order) {
+        var orderId = tokenService.decryptTokenOrder(order);
+        var orderObject = orderService.getOrderById(Long.valueOf(orderId));
+        orderObject.setStatus(OrderStatus.DELIVERING);
+        orderService.updateOrder(orderObject.getId(), orderObject);
+        paypalService.capturePayment(token);
+        cartService.removeAll();
+        return "Notify/success-payment";
     }
 }

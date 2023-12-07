@@ -83,6 +83,18 @@
                   </label>
 
                   </div>
+                  <div class="payment" style="display: flex; justify-content: start">
+                    <label style="display: flex; margin: 0; align-items: center">
+                      <input style="height: 30px; width: 10%"  type="radio"  th:field="${order.paymentMethod.id}" th:value="2">
+                      <div style="width: 10%; margin: 0 25px">
+
+                        <img  th:src="@{/img/logopaypal.png}">
+                      </div>
+                      <p style="margin:0">
+                        Ví Paypal
+                      </p>
+                    </label>
+                  </div>
                 </div>
                 <button  class="btn alazea-btn w-100" type="submit">Submit</button>
               </div>

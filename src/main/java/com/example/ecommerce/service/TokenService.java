@@ -39,4 +39,21 @@ public class TokenService {
         return new User(email, name, phone);
     }
 
+    public String generateTokenOrder(Long orderId) {
+        Claims claims = Jwts.claims();
+        claims.put("order", orderId);
+        return Jwts.builder()
+                .setClaims(claims)
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .compact();
+    }
+    public Integer decryptTokenOrder(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(SECRET_KEY)
+                .parseClaimsJws(token)
+                .getBody();
+        Integer orderId = (Integer) claims.get("order");
+        return orderId;
+    }
+
 }
